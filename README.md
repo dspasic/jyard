@@ -1,2 +1,3 @@
-# jyard
+# JYard
+
 Personal Java Playground
