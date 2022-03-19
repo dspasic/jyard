@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+import reactor.test.StepVerifierOptions;
+import reactor.util.context.Context;
 
 public class Chapter6Test {
 
@@ -25,6 +27,18 @@ public class Chapter6Test {
         .expectSubscription()
         .expectNoEvent(Duration.ofDays(1))
         .expectNext(0L)
+        .verifyComplete();
+  }
+
+  @Test
+  void testWithInitialContext() {
+    StepVerifier.create(
+            Mono.just(1).map(i -> i + 10),
+            StepVerifierOptions.create().withInitialContext(Context.of("ctx1", "val1")))
+        .expectAccessibleContext()
+        .contains("ctx1", "val1")
+        .then()
+        .expectNext(11)
         .verifyComplete();
   }
 
