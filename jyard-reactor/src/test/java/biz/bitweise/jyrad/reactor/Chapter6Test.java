@@ -2,6 +2,7 @@ package biz.bitweise.jyrad.reactor;
 
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -19,6 +20,10 @@ public class Chapter6Test {
         .expectNext("Two")
         .expectErrorMessage("boom")
         .verify();
+  }
+
+  private <T> Flux<T> appendBoomError(final Flux<T> source) {
+    return source.concatWith(Mono.error(new IllegalArgumentException("boom")));
   }
 
   @Test
@@ -42,7 +47,25 @@ public class Chapter6Test {
         .verifyComplete();
   }
 
-  private <T> Flux<T> appendBoomError(final Flux<T> source) {
-    return source.concatWith(Mono.error(new IllegalArgumentException("boom")));
+  @Test
+  void testSplitPathIsUsed() {
+    StepVerifier.create(
+            processOrFallback(Mono.just("just a phrase with whitespaces"), Mono.just("FALLBACK")))
+        .expectNext("just", "a", "phrase", "with", "whitespaces")
+        .verifyComplete();
+  }
+
+  @Test
+  void testEmptyPathIsUsed() {
+    StepVerifier.create(processOrFallback(Mono.empty(), Mono.just("EMPTY")))
+        .expectNext("EMPTY")
+        .verifyComplete();
+  }
+
+  private Flux<String> processOrFallback(final Mono<String> source,
+      final Publisher<String> fallback) {
+    return source
+        .flatMapMany(phrase -> Flux.fromArray(phrase.split("\\s+")))
+        .switchIfEmpty(fallback);
   }
 }
