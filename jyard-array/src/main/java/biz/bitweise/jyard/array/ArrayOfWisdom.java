@@ -1,4 +1,4 @@
-package biz.bitweise.jyard;
+package biz.bitweise.jyard.array;
 
 import java.util.ArrayList;
 import java.util.Collection;

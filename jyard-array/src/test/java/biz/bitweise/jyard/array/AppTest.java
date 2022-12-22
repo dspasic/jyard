@@ -1,4 +1,4 @@
-package biz.bitweise.jyard;
+package biz.bitweise.jyard.array;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
