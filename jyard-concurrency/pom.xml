@@ -16,8 +16,8 @@
 
   <name>jyard-concurrency</name>
 
-  <properties></properties>
-  <dependencies></dependencies>
+  <properties/>
+  <dependencies/>
 
   <build>
     <plugins>

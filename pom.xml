@@ -42,6 +42,7 @@
     <maven.site>3.7.1</maven.site>
     <maven.project-info-reports>3.1.2</maven.project-info-reports>
     <maven.checkstyle>3.1.2</maven.checkstyle>
+    <maven.wrapper>3.1.0</maven.wrapper>
   </properties>
 
   <dependencies>
@@ -108,8 +109,16 @@
           <version>${maven.site}</version>
         </plugin>
         <plugin>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${maven.shade}</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${maven.project-info-reports}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-wrapper-plugin</artifactId>
+          <version>${maven.wrapper}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -157,6 +166,10 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-wrapper-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
