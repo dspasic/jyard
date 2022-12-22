@@ -4,16 +4,15 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>biz.bitweise.jyard</groupId>
-  <artifactId>jyard-array</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
   <parent>
     <groupId>biz.bitweise.jyard</groupId>
     <artifactId>jyard-root</artifactId>
     <version>1.0.0</version>
   </parent>
+
+  <artifactId>jyard-array</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>jyard-array</name>
   <description>Some test on arrays and collections</description>
@@ -42,7 +41,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven.shade}</version>
         <executions>
           <execution>
             <phase>package</phase>

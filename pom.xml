@@ -28,19 +28,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <junit>5.9.0</junit>
+    <junit.version>5.9.0</junit.version>
 
     <!-- Plugin versions -->
     <maven.shade>3.2.2</maven.shade>
     <maven.clean>3.1.0</maven.clean>
-    <maven.resources>3.1.0</maven.resources>
+    <maven.resources>3.2.0</maven.resources>
     <maven.compiler>3.8.1</maven.compiler>
     <maven.surefire>3.0.0-M5</maven.surefire>
     <maven.jar>3.2.0</maven.jar>
     <maven.install>3.0.0-M1</maven.install>
     <maven.deploy>3.0.0-M1</maven.deploy>
     <maven.site>3.7.1</maven.site>
-    <maven.info-reports>3.1.2</maven.info-reports>
+    <maven.project-info-reports>3.1.2</maven.project-info-reports>
     <maven.checkstyle>3.1.2</maven.checkstyle>
   </properties>
 
@@ -49,19 +49,19 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit}</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit}</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit}</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -109,7 +109,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>${maven.info-reports}</version>
+          <version>${maven.project-info-reports}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -130,7 +130,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
