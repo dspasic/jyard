@@ -4,26 +4,19 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>biz.bitweise.jyard</groupId>
+  <parent>
+    <groupId>biz.bitweise.jyard</groupId>
+    <artifactId>jyard-root</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
   <artifactId>jyard-concurrency</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>jyard-concurrency</name>
 
-  <properties>
-    <junit>5.9.0</junit>
-
-    <!-- Plugin versions -->
-    <maven.shade>3.2.2</maven.shade>
-    <maven.clean>3.1.0</maven.clean>
-    <maven.resources>3.1.0</maven.resources>
-    <maven.compiler>3.8.1</maven.compiler>
-    <maven.surefire>3.0.0-M5</maven.surefire>
-    <maven.jar>3.2.0</maven.jar>
-    <maven.install>3.0.0-M1</maven.install>
-  </properties>
-
+  <properties></properties>
   <dependencies></dependencies>
 
   <build>
