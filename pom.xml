@@ -17,6 +17,7 @@
     <module>jyard-concurrency</module>
     <module>jyard-array</module>
     <module>jyard-reactor</module>
+    <module>jyard-object</module>
   </modules>
 
   <properties>
