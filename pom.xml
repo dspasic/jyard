@@ -42,7 +42,7 @@
     <maven.deploy>3.0.0-M1</maven.deploy>
     <maven.site>3.7.1</maven.site>
     <maven.project-info-reports>3.1.2</maven.project-info-reports>
-    <maven.checkstyle>3.1.2</maven.checkstyle>
+    <maven.checkstyle>3.2.0</maven.checkstyle>
     <maven.wrapper>3.1.0</maven.wrapper>
   </properties>
 
@@ -126,15 +126,13 @@
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${maven.checkstyle}</version>
           <!--
-          Need(ed) the adjustment to avoid an unexpected token error.
-          See https://stackoverflow.com/questions/69954300/mvn-plugin-checkstyle-fails-with-an-unexpected-token-error
-          for further information.
+          Using the latest version of check style.
           -->
           <dependencies>
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
               <artifactId>checkstyle</artifactId>
-              <version>9.1</version>
+              <version>10.5.0</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -156,7 +154,8 @@
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
-          <excludes>target/**/*</excludes>
+          <excludes>**/*_jmhTest.java,**/*_jmhType*.java,**/target/**/*</excludes>
+<!--          <excludes>${basedir}jyard-array/target/**/*</excludes>-->
         </configuration>
         <executions>
           <execution>
