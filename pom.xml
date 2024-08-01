@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
-
   <name>jyard-root</name>
   <description>Root POM of the jyard project</description>
-
   <groupId>biz.bitweise.jyard</groupId>
   <artifactId>jyard-root</artifactId>
   <version>1.0.0</version>
@@ -19,6 +17,7 @@
     <module>jyard-http</module>
     <module>jyard-object</module>
     <module>jyard-reactor</module>
+    <module>jyard-io</module>
   </modules>
 
   <properties>
@@ -26,10 +25,8 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.release>${java.version}</maven.compiler.release>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
     <junit.version>5.10.1</junit.version>
 
     <!-- Plugin versions -->
@@ -156,7 +153,7 @@
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
           <excludes>**/*_jmhTest.java,**/*_jmhType*.java,**/target/**/*</excludes>
-<!--          <excludes>${basedir}jyard-array/target/**/*</excludes>-->
+          <!--          <excludes>${basedir}jyard-array/target/**/*</excludes>-->
         </configuration>
         <executions>
           <execution>
