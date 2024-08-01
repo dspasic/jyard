@@ -152,7 +152,7 @@
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
-          <excludes>**/*_jmhTest.java,**/*_jmhType*.java,**/target/**/*</excludes>
+
           <!--          <excludes>${basedir}jyard-array/target/**/*</excludes>-->
         </configuration>
         <executions>
