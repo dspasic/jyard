@@ -19,7 +19,7 @@ public class FixedSizedBoundQueueCallerRuns {
 
   public static void main(String[] args) {
     var executor = new ThreadPoolExecutor(N_THREADS, N_THREADS,
-        0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(CAPACITY));
+        0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(CAPACITY));
     executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
   }
 }
