@@ -1,0 +1,25 @@
+services:
+  zookeeper:
+    platform: linux/x86_64
+    image: confluentinc/cp-zookeeper:7.0.1
+    hostname: zookeeper
+    container_name: springkafka_zookeeper
+    ports:
+      - ${DOCKER_ZOOKEEPER_PORT:-2181}:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: ${DOCKER_ZOOKEEPER_PORT:-2181}
+  kafka:
+    platform: linux/x86_64
+    image: confluentinc/cp-kafka:7.0.1
+    hostname: kafka
+    container_name: springkafka_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - ${DOCKER_KAFKA_INTERN_PORT:-9091}:9091
+      - ${DOCKER_KAFKA_EXTERN_PORT:-9092}:${DOCKER_KAFKA_EXTERN_PORT:-9092}
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:${DOCKER_ZOOKEEPER_PORT:-2181}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:${DOCKER_KAFKA_EXTERN_PORT:-9092}
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
