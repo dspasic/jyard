@@ -45,7 +45,8 @@ import org.springframework.kafka.listener.ContainerProperties;
  * number of concurrent running consumers defined with {@link KafkaListener#concurrency()}. If the
  * clientPrefix is defined the defined client id will be clientPrefix-N.
  *
- * <p>[Consumer clientId=prefix-1, groupId=dejan.records]
+ * <p>The following will appear in the logs <code>
+ * [Consumer clientId=prefix-1, groupId=dejan.records]</code>
  */
 @SpringBootApplication
 @Configuration
@@ -75,8 +76,40 @@ public class KafkaGroupClientId {
     return new DefaultKafkaConsumerFactory<>(props);
   }
 
+  /**
+   * This will generate the following log entry: <code>
+   * [Consumer clientId=consumer-dejan.records-N, groupId=dejan.records]</code>
+   */
   @KafkaListener(topics = "dejan.records", groupId = "dejan.records", concurrency = "2")
-  public void listen(ConsumerRecords<String, String> records) {
+  public void listen1(ConsumerRecords<String, String> records) {
+    records.forEach(System.out::println);
+  }
+
+  /**
+   * This will generate the following log entry: <code>
+   * [Consumer clientId=clientIdPrefix-N, groupId=dejan.records]</code>
+   */
+  @KafkaListener(
+      topics = "dejan.records",
+      clientIdPrefix = "clientIdPrefix",
+      groupId = "dejan.records",
+      concurrency = "2")
+  public void listen2(ConsumerRecords<String, String> records) {
+    records.forEach(System.out::println);
+  }
+
+  /**
+   * This will generate the following log entry: <code>
+   * [Consumer clientId=idPrefix-0, groupId=dejan.records]</code>. My guess is that the id is used
+   * for the Observability.
+   */
+  @KafkaListener(
+      topics = "dejan.records",
+      id = "dejan.id",
+      clientIdPrefix = "idPrefix",
+      groupId = "dejan.records",
+      concurrency = "2")
+  public void listen3(ConsumerRecords<String, String> records) {
     records.forEach(System.out::println);
   }
 }
