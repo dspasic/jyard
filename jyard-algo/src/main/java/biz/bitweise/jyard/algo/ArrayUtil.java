@@ -4,7 +4,7 @@ public class ArrayUtil {
 
   public static int[] removeEvenNumbers(final int[] ints) {
     var oddCount = 0;
-    for (var c: ints) {
+    for (var c : ints) {
       if (isOdd(c)) oddCount++;
     }
 
@@ -14,7 +14,7 @@ public class ArrayUtil {
 
     int[] odds = new int[oddCount];
     var idx = 0;
-    for (var c: ints) {
+    for (var c : ints) {
       if (isOdd(c)) odds[idx++] = c;
     }
 
@@ -46,4 +46,13 @@ public class ArrayUtil {
     }
   }
 
+  public static int findMin(final int[] numbers) {
+    int min = Integer.MAX_VALUE;
+    for (int number : numbers) {
+      if (min > number) {
+        min = number;
+      }
+    }
+    return min;
+  }
 }

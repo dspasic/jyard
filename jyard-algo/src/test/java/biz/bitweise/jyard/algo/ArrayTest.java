@@ -41,6 +41,12 @@ public class ArrayTest {
     assertEquals(4, numbers[0]);
   }
 
+  @Test
+  void findMinValue() {
+    int[] numbers = new int[]{1, 2, 5, 6, 2, 3, 1, 6, 0, -10, 9};
+    assertEquals(-10, ArrayUtil.findMin(numbers));
+  }
+
   private static void printArray(int[] a) {
     System.out.println(
         Arrays.stream(a)
