@@ -24,4 +24,26 @@ public class ArrayUtil {
   private static boolean isOdd(int n) {
     return (n & 1) == 1;
   }
+
+  // this example it copies the array
+  public static int[] reverse(final int[] numbers) {
+    int[] reversed = new int[numbers.length];
+    for (int i = 0, j = numbers.length - 1; i < numbers.length; i++, j--) {
+      reversed[j] = numbers[i];
+    }
+    return reversed;
+  }
+
+  // mutates the given array
+  public static void reverseArray(final int[] numbers) {
+    int start = 0, end = numbers.length - 1;
+    while (start < end) {
+      var tmp = numbers[start];
+      numbers[start] = numbers[end];
+      numbers[end] = tmp;
+      start++;
+      end--;
+    }
+  }
+
 }
