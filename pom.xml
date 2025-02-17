@@ -19,6 +19,7 @@
     <module>jyard-reactor</module>
     <module>jyard-io</module>
     <module>jyard-algo</module>
+    <module>jyard-performance</module>
   </modules>
 
   <properties>
