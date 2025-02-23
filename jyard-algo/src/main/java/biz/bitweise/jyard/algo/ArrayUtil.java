@@ -55,4 +55,28 @@ public class ArrayUtil {
     }
     return min;
   }
+
+  public static int findSecondMaximum(final int[] numbers) {
+    if (numbers.length < 2) {
+      return numbers[0];
+    }
+
+    if (numbers.length == 2) {
+      return numbers[1] > numbers[0] ? numbers[0] : numbers[1];
+    }
+
+    int maximum = numbers[0] > numbers[1] ? numbers[0] : numbers[1];
+    int secondMaximum = numbers[0] > numbers[1] ? numbers[1] : numbers[0];
+
+    for (int i = 2; i < numbers.length; i++) {
+      if (numbers[i] > maximum) {
+        secondMaximum = maximum;
+        maximum = numbers[i];
+      } else if (numbers[i] > secondMaximum && numbers[i] < maximum) {
+        secondMaximum = numbers[i];
+      }
+    }
+
+    return secondMaximum;
+  }
 }
