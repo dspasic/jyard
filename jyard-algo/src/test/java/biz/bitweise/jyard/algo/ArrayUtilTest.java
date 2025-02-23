@@ -1,7 +1,6 @@
 package biz.bitweise.jyard.algo;
 
 import java.util.Arrays;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ArrayTest {
+public class ArrayUtilTest {
 
   @Test
   void removeEvenIntegersFromArray() {
