@@ -53,4 +53,14 @@ public class ArrayTest {
             .mapToObj(i -> Integer.valueOf(i).toString())
             .collect(Collectors.joining(",")));
   }
+
+  @Test
+  void findSecondMaximum() {
+    assertEquals(1, ArrayUtil.findSecondMaximum(new int[]{1}));
+    assertEquals(1, ArrayUtil.findSecondMaximum(new int[]{1, 3}));
+    assertEquals(3, ArrayUtil.findSecondMaximum(new int[]{1, 3, 5}));
+    assertEquals(4, ArrayUtil.findSecondMaximum(new int[]{1, 3, 5, 4}));
+    assertEquals(4, ArrayUtil.findSecondMaximum(new int[]{1, 3, 5, 4, 5}));
+  }
+
 }
