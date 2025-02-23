@@ -79,4 +79,27 @@ public class ArrayUtil {
 
     return secondMaximum;
   }
+
+  public static void moveZeroToTail(final int[] numbers) {
+    if (numbers.length < 2) {
+      return;
+    }
+
+    int zero = 0;
+    int ptr = 0;
+
+    while (ptr < numbers.length) {
+      if (numbers[ptr] != 0 && numbers[zero] == 0) {
+        int tmp = numbers[zero];
+        numbers[zero] = numbers[ptr];
+        numbers[ptr] = tmp;
+      }
+
+      if (numbers[zero] != 0) {
+        zero++;
+      }
+
+      ptr++;
+    }
+  }
 }
