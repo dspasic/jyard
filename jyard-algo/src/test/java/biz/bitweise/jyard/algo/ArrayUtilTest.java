@@ -6,8 +6,7 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayUtilTest {
 
@@ -67,7 +66,7 @@ public class ArrayUtilTest {
   void moveZerosToTail() {
     var numbers = new int[] {1};
     ArrayUtil.moveZeroToTail(numbers);
-    assertArrayEquals(new int[]{1}, numbers);
+    assertArrayEquals(new int[] {1}, numbers);
 
     numbers = new int[] {0, 1, 0, 4, 12};
     ArrayUtil.moveZeroToTail(numbers);
@@ -76,5 +75,22 @@ public class ArrayUtilTest {
     numbers = new int[] {8, 1, 0, 2, 1, 0, 3};
     ArrayUtil.moveZeroToTail(numbers);
     assertArrayEquals(new int[] {8, 1, 2, 1, 3, 0, 0}, numbers);
+  }
+
+  @Test
+  void resizeArray() {
+    final var initialSize = new int[] {1, 4, 5, 7};
+    assertEquals(4, initialSize.length);
+
+    final var resized = ArrayUtil.resize(initialSize, 10);
+    assertEquals(10, resized.length);
+
+    System.out.println(resized);
+  }
+
+  @Test
+  void findMissingNumber() {
+    final var n = new int[] {2, 4, 1, 8, 6, 3, 7};
+    assertEquals(5, ArrayUtil.findMissingNumber(n));
   }
 }
