@@ -36,9 +36,15 @@ public class ArrayUtil {
 
   // mutates the given array
   public static void reverseArray(final int[] numbers) {
-    int start = 0, end = numbers.length - 1;
+    if (numbers == null || numbers.length == 0) {
+      return;
+    }
+
+    int start = 0;
+    int end = numbers.length - 1;
+
     while (start < end) {
-      var tmp = numbers[start];
+      final var tmp = numbers[start];
       numbers[start] = numbers[end];
       numbers[end] = tmp;
       start++;
