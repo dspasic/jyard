@@ -110,8 +110,6 @@ public class ArrayUtil {
       ptr++;
     }
   }
-<<<<<<< Updated upstream
-=======
 
   public static int[] resize(final int[] numbers, final int newSize) {
     Objects.requireNonNull(numbers);
@@ -143,5 +141,4 @@ public class ArrayUtil {
     }
     return m;
   }
->>>>>>> Stashed changes
 }
