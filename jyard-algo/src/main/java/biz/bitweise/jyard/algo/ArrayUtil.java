@@ -55,35 +55,35 @@ public class ArrayUtil {
   public static int findMin(final int[] numbers) {
     int min = Integer.MAX_VALUE;
     for (int number : numbers) {
-      if (min > number) {
-        min = number;
-      }
+      if (number < min) min = number;
     }
     return min;
   }
 
   public static int findSecondMaximum(final int[] numbers) {
-    if (numbers.length < 2) {
+    if (numbers == null || numbers.length == 0) {
+      throw new IllegalArgumentException(
+          "numbers must not be null or must have at least one element");
+    }
+
+    if (numbers.length == 1) {
       return numbers[0];
     }
 
-    if (numbers.length == 2) {
-      return numbers[1] > numbers[0] ? numbers[0] : numbers[1];
-    }
+    int max = Integer.MIN_VALUE;
+    int secondMax = Integer.MIN_VALUE;
 
-    int maximum = numbers[0] > numbers[1] ? numbers[0] : numbers[1];
-    int secondMaximum = numbers[0] > numbers[1] ? numbers[1] : numbers[0];
-
-    for (int i = 2; i < numbers.length; i++) {
-      if (numbers[i] > maximum) {
-        secondMaximum = maximum;
-        maximum = numbers[i];
-      } else if (numbers[i] > secondMaximum && numbers[i] < maximum) {
-        secondMaximum = numbers[i];
+    for (int n : numbers) {
+      if (n > max) {
+        secondMax = max;
+        max = n;
+      }
+      if (n > secondMax && n < max) {
+        secondMax = n;
       }
     }
 
-    return secondMaximum;
+    return secondMax;
   }
 
   public static void moveZeroToTail(final int[] numbers) {
