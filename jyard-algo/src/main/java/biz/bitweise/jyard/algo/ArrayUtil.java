@@ -89,29 +89,27 @@ public class ArrayUtil {
   }
 
   public static void moveZeroToTail(final int[] numbers) {
-    if (numbers.length < 2) {
+    if (numbers == null || numbers.length < 2) {
       return;
     }
 
-    int zero = 0;
-    int ptr = 0;
+    int nptr = 1;
+    int zptr = 0;
+    while (nptr < numbers.length) {
+        int nv = numbers[nptr];
+        int zv = numbers[zptr];
+        if (nv > 0 && zv == 0) {
+            numbers[zptr] = nv;
+            numbers[nptr] = zv;
+            zptr++;
+        }
+        nptr++;
 
-    while (ptr < numbers.length) {
-      if (numbers[ptr] != 0 && numbers[zero] == 0) {
-        int tmp = numbers[zero];
-        numbers[zero] = numbers[ptr];
-        numbers[ptr] = tmp;
-      }
-
-      if (numbers[zero] != 0) {
-        zero++;
-      }
-
-      ptr++;
+        if (numbers[zptr] != 0) {
+            zptr++;
+        }
     }
   }
-<<<<<<< Updated upstream
-=======
 
   public static int[] resize(final int[] numbers, final int newSize) {
     Objects.requireNonNull(numbers);
@@ -143,5 +141,4 @@ public class ArrayUtil {
     }
     return m;
   }
->>>>>>> Stashed changes
 }
