@@ -20,6 +20,9 @@ public class SimplyLinkList<T> {
   }
 
   public T removeFirst() {
+    if (head == null) {
+      return null;
+    }
     final var node = head;
     head = head.next;
     return node.value;
