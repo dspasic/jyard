@@ -19,6 +19,12 @@ public class SimplyLinkList<T> {
     head = n;
   }
 
+  public T removeFirst() {
+    final var node = head;
+    head = head.next;
+    return node.value;
+  }
+
   public int size() {
     Node<T> current = head;
     int size = 0;
