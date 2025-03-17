@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
 /** Playing around with the HTTP Client */
-public class App {
+public class HttpClientApp {
 
   public static void main(String[] args) throws IOException, InterruptedException {
 
