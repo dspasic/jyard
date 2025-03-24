@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 // Not thread safe
 public class SimplyLinkList<T> implements Iterable<T> {
@@ -55,10 +56,39 @@ public class SimplyLinkList<T> implements Iterable<T> {
     return head == null;
   }
 
-  public boolean contains(T v) {
-    if (v == null) {
-      throw new IllegalArgumentException("v must be not null");
+  public T findNFromEnd(int n) {
+    if (n < 0 || n > size()) {
+      throw new IndexOutOfBoundsException("n must be in range [0.." + size() + "]");
     }
+
+    if (head == null) {
+      return null;
+    }
+
+    if (n == 0) {
+      return head.value;
+    }
+
+    var refNode = head;
+    var nthNode = head;
+    int count = 0;
+
+    while (count < n) {
+      refNode = refNode.next;
+      count++;
+    }
+
+    while (refNode != null) {
+      refNode = refNode.next;
+      nthNode = nthNode.next;
+    }
+
+    return nthNode.value;
+  }
+
+  public boolean contains(T v) {
+    Objects.requireNonNull(v);
+
     if (head == null) {
       return false;
     }

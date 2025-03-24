@@ -20,6 +20,7 @@
     <module>jyard-io</module>
     <module>jyard-algo</module>
     <module>jyard-performance</module>
+    <module>jyard-net</module>
   </modules>
 
   <properties>
