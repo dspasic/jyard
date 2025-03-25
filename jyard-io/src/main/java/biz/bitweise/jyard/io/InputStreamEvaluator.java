@@ -1,7 +1,7 @@
 package biz.bitweise.jyard.io;
 
-
 import java.io.ByteArrayInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -30,7 +30,49 @@ public class InputStreamEvaluator {
     }
 
     public void parse(InputStream in) throws IOException {
+      var c = in.read();
+      if (c == -1) {
+        return;
+      }
 
+      switch ((char) c) {
+        case '*':
+          var it = readInt();
+          for (int i = 0; i < it; i++) {
+            parse(in);
+          }
+
+          break;
+      }
+    }
+
+    int readInt() throws IOException {
+      return (int) readLong();
+    }
+
+    long readLong() throws IOException {
+      long v = 0;
+
+      var c = in.read();
+      final boolean negative = c == '-';
+      if (!negative) {
+        v = c;
+      }
+
+      while (true) {
+        c = in.read();
+        if (c == '\r') {
+          int eol = in.read();
+          if (eol != '\n') {
+            throw new EOFException();
+          }
+          break;
+        } else {
+          v = v * 10 + c;
+        }
+      }
+
+      return v;
     }
   }
 }
