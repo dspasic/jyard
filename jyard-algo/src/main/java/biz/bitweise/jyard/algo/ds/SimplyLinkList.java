@@ -1,7 +1,13 @@
 package biz.bitweise.jyard.algo.ds;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
+import java.util.Iterator;
+import java.util.Objects;
+
 // Not thread safe
-public class SimplyLinkList<T> {
+public class SimplyLinkList<T> implements Iterable<T> {
 
   private Node<T> head;
 
@@ -12,11 +18,88 @@ public class SimplyLinkList<T> {
 
   public SimplyLinkList() {}
 
+  @Nullable
+  public T getFirst() {
+    return head == null ? null : head.value;
+  }
+
   public void add(T value) {
     Node<T> n = new Node<>();
     n.value = value;
     n.next = head;
     head = n;
+  }
+
+  public T removeFirst() {
+    if (head == null) {
+      return null;
+    }
+    final var node = head;
+    head = head.next;
+    return node.value;
+  }
+
+  public void reverse() {
+    Node<T> nextCurrent;
+    Node<T> reversed = null;
+    Node<T> current = head;
+    while (current != null) {
+      nextCurrent = current.next;
+      current.next = reversed;
+      reversed = current;
+      current = nextCurrent;
+    }
+    head = reversed;
+  }
+
+  public boolean isEmpty() {
+    return head == null;
+  }
+
+  public T findNFromEnd(int n) {
+    if (n < 0 || n > size()) {
+      throw new IndexOutOfBoundsException("n must be in range [0.." + size() + "]");
+    }
+
+    if (head == null) {
+      return null;
+    }
+
+    if (n == 0) {
+      return head.value;
+    }
+
+    var refNode = head;
+    var nthNode = head;
+    int count = 0;
+
+    while (count < n) {
+      refNode = refNode.next;
+      count++;
+    }
+
+    while (refNode != null) {
+      refNode = refNode.next;
+      nthNode = nthNode.next;
+    }
+
+    return nthNode.value;
+  }
+
+  public boolean contains(T v) {
+    Objects.requireNonNull(v);
+
+    if (head == null) {
+      return false;
+    }
+    var current = head;
+    while (current != null) {
+      if (current.value.equals(v)) {
+        return true;
+      }
+      current = current.next;
+    }
+    return false;
   }
 
   public int size() {
@@ -27,6 +110,22 @@ public class SimplyLinkList<T> {
       current = current.next;
     }
     return size;
+  }
+
+  @Override
+  @Nonnull
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      @Override
+      public boolean hasNext() {
+        return head != null && head.next != null;
+      }
+
+      @Override
+      public T next() {
+        return head.next.value;
+      }
+    };
   }
 
   public void printList() {
