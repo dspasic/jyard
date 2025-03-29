@@ -27,7 +27,7 @@ public class ArrayUtil {
     return (n & 1) == 1;
   }
 
-  // this example it copies the array
+  // This example it copies the array
   public static int[] reverse(final int[] numbers) {
     int[] reversed = new int[numbers.length];
     for (int i = 0, j = numbers.length - 1; i < numbers.length; i++, j--) {
