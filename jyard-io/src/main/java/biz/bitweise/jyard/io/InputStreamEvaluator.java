@@ -4,46 +4,70 @@ import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class InputStreamEvaluator {
 
-  public byte[] readStream() {
-    final String redisCommand = "*2\\r\\n$4\\r\\nECHO\\r\\n$3\\r\\nhey\\r\\n";
-    final InputStream in = new ByteArrayInputStream(redisCommand.getBytes());
-    System.out.println(Arrays.toString(redisCommand.getBytes()));
-    return new byte[0];
+  public InputStream createStream() {
+    final String redisCommand = "*2\r\n$4\r\nECHO\r\n$3\r\nhey\r\n";
+    // System.out.println(Arrays.toString(redisCommand.getBytes()));
+    return new ByteArrayInputStream(redisCommand.getBytes());
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     final var in = new InputStreamEvaluator();
-    in.readStream();
+
+    var parsedReq = new RedisParser().parse(in.createStream());
+    System.out.println(new Translator().translate(parsedReq));
+  }
+
+  static class Translator {
+
+    public String translate(Object req) {
+      if (req instanceof Object[] r) {
+        if (r.length == 2 && r[0] instanceof String c) {
+          var cmd = c.toUpperCase();
+          if (cmd.equals("ECHO")) {
+            if (r[1] instanceof String arg) {
+              return arg;
+            } else {
+              return "-ERROR One argument must be given for ECHO";
+            }
+          }
+        }
+      }
+      return "-ERROR Unknown command";
+    }
   }
 
   static class RedisParser {
 
-    private final InputStream in;
+    private InputStream in;
 
-    public RedisParser(InputStream in) {
-      this.in = Objects.requireNonNull(in);
-    }
-
-    public void parse(InputStream in) throws IOException {
+    public Object parse(InputStream in) throws IOException {
+      this.in = Objects.requireNonNull(in, "in can not be null");
       var c = in.read();
       if (c == -1) {
-        return;
+        return null;
       }
 
       switch ((char) c) {
-        case '*':
+        case '*' -> {
+          // Read N elements from the stream
+          // See: https://redis.io/docs/latest/develop/reference/protocol-spec/#arrays
           var it = readInt();
+          Object[] l = new Object[it];
           for (int i = 0; i < it; i++) {
-            parse(in);
+            l[i] = parse(in);
           }
-
-          break;
+          return l;
+        }
+        case '$' -> {
+          var length = readInt();
+          return readString(length);
+        }
       }
+      return null;
     }
 
     int readInt() throws IOException {
@@ -53,26 +77,60 @@ public class InputStreamEvaluator {
     long readLong() throws IOException {
       long v = 0;
 
-      var c = in.read();
+      var c = (char) read();
       final boolean negative = c == '-';
       if (!negative) {
-        v = c;
+        v = c - '0';
       }
 
       while (true) {
-        c = in.read();
+        c = (char) read();
         if (c == '\r') {
-          int eol = in.read();
+          int eol = read();
           if (eol != '\n') {
-            throw new EOFException();
+            throw new ParserException("Expected line feed after carriage return. Found: " + eol);
           }
           break;
         } else {
-          v = v * 10 + c;
+          v = v * 10 + (c - '0');
         }
       }
 
-      return v;
+      return negative ? -v : v;
+    }
+
+    public String readString(int length) throws IOException {
+      // Read the N characters form the stream
+      // See: https://redis.io/docs/latest/develop/reference/protocol-spec/#bulk-strings
+      byte[] bytes = new byte[length];
+      var nob = in.read(bytes);
+      if (nob != length) {
+        throw new ParserException("Expected %d bytes to read, but %d bytes were available");
+      }
+      var eol = (char) read();
+      if (eol == '\r') {
+        eol = (char) read();
+        if (eol != '\n') {
+          throw new ParserException("Expected line feed after carriage return. Found: " + eol);
+        }
+      } else {
+        throw new ParserException("Expected carriage return. Found: " + eol);
+      }
+      return new String(bytes);
+    }
+
+    private int read() throws IOException {
+      final var n = in.read();
+      if (n == -1) {
+        throw new EOFException();
+      }
+      return n;
+    }
+
+    public static class ParserException extends RuntimeException {
+      public ParserException(String message) {
+        super(message);
+      }
     }
   }
 }
