@@ -117,4 +117,25 @@ public class SimplyLinkListTest {
 
     assertThrows(IndexOutOfBoundsException.class, () -> list.findNFromEnd(-1));
   }
+
+  //
+  // Remove duplicates
+  //
+  // https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=6&t=22962s
+  //
+
+  @Test
+  void givenSixElementsWithThreeDuplicates_whenRemoveDuplicates_thenCountThree() {
+    final var list = new SimplyLinkList<Integer>();
+    list.add(3);
+    list.add(3);
+    list.add(3);
+    list.add(2);
+    list.add(2);
+    list.add(1);
+
+    list.removeDuplicates();
+
+    assertEquals(3, list.size());
+  }
 }

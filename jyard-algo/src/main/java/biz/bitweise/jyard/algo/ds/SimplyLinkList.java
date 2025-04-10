@@ -39,6 +39,9 @@ public class SimplyLinkList<T> implements Iterable<T> {
     return node.value;
   }
 
+  /**
+   * https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=6&t=22962s
+   */
   public void reverse() {
     Node<T> nextCurrent;
     Node<T> reversed = null;
@@ -50,6 +53,24 @@ public class SimplyLinkList<T> implements Iterable<T> {
       current = nextCurrent;
     }
     head = reversed;
+  }
+
+  /**
+   * https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=6&t=22962s
+   */
+  public void removeDuplicates() {
+    if (size() < 2) {
+      return;
+    }
+
+    var current = head.next;
+    while (current != null && current.next != null) {
+      if (current.value.equals(current.next.value)) {
+        current.next = current.next.next;
+      } else {
+        current = current.next;
+      }
+    }
   }
 
   public boolean isEmpty() {
