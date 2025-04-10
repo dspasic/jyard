@@ -132,7 +132,7 @@ public class ArrayUtil {
    * Given an array of n - 1 distinct numbers in a range of 1 to n. Find the missing numbers in it.
    */
   public static int findMissingNumber(final int[] numbers) {
-    // sum the numbers from 1 to n
+    // Sum the numbers from 1 to n
     // math formula for the sum of first natural numbers is n(n+1)/2
     final int n = numbers.length + 1;
     int m = n * (n + 1) / 2;
