@@ -16,7 +16,7 @@ public class SimplyLinkListTest {
   }
 
   @Test
-  void givenTwoElement_whenRemoveFirst_thenCountOne() {
+  void givenTwoElements_whenRemoveFirst_thenCountOne() {
     SimplyLinkList<Integer> list = new SimplyLinkList<>();
     list.add(1);
     list.add(5);
@@ -30,10 +30,25 @@ public class SimplyLinkListTest {
   }
 
   @Test
+  void givenTwoElements_whenSearchGivenElement_thenReturnFalse() {
+    SimplyLinkList<Integer> list = new SimplyLinkList<>();
+    list.add(1);
+    list.add(5);
+    list.add(2);
+
+    assertEquals(3, list.size());
+
+    assertFalse(list.contains(6));
+  }
+
+  @Test
   void givenTwoElements_whenSearchGivenElement_thenReturnTrue() {
     SimplyLinkList<Integer> list = new SimplyLinkList<>();
     list.add(1);
     list.add(5);
+    list.add(2);
+
+    assertEquals(3, list.size());
 
     assertTrue(list.contains(5));
   }
