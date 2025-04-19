@@ -3,6 +3,8 @@ package biz.bitweise.jyard.algo.ds;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -28,6 +30,34 @@ public class SimplyLinkList<T> implements Iterable<T> {
     n.value = value;
     n.next = head;
     head = n;
+  }
+
+  // Add sorted note
+  // https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=25071s
+  public void addSorted(T value) {
+    final Node<T> n = new Node<>();
+    n.value = value;
+
+    if (head == null) {
+      add(value);
+      return;
+    }
+
+    if (!(value instanceof Comparable)) {
+      throw new ClassCastException();
+    }
+
+    @SuppressWarnings("unchecked")
+    var v = (Comparable<T>) value;
+    var current = head;
+    Node<T> temp = current;
+
+    while (current != null && v.compareTo(current.value) > 0) {
+      temp = current;
+      current = current.next;
+    }
+    n.next = current;
+    temp.next = n;
   }
 
   public T removeFirst() {

@@ -153,4 +153,22 @@ public class SimplyLinkListTest {
 
     assertEquals(3, list.size());
   }
+
+  //
+  // Insert node in a sorted Singly Link List
+  //
+  // https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=25071s
+  //
+
+  @Test
+  void givenTwoSortedElements_whenAddElement_thenInsertSorted() {
+    final var list = new SimplyLinkList<Integer>();
+    list.addSorted(3);
+    list.addSorted(1);
+    list.addSorted(2);
+
+    assertEquals(1, list.removeFirst());
+    assertEquals(2, list.removeFirst());
+    assertEquals(3, list.removeFirst());
+  }
 }
