@@ -3,13 +3,11 @@ package biz.bitweise.jyard.algo.ds;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
 // Not thread safe
-public class SimplyLinkList<T> implements Iterable<T> {
+public class SimplyLinkList<T extends Comparable<T>> implements Iterable<T> {
 
   private Node<T> head;
 
@@ -22,7 +20,7 @@ public class SimplyLinkList<T> implements Iterable<T> {
 
   @Nullable
   public T getFirst() {
-    return head == null ? null : head.value;
+    return  isEmpty() ? null : head.value;
   }
 
   public void add(T value) {
@@ -32,27 +30,25 @@ public class SimplyLinkList<T> implements Iterable<T> {
     head = n;
   }
 
-  // Add sorted note
-  // https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=25071s
+  /**
+   * Add sorted node
+   *
+   * https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=4&ab_channel=freeCodeCamp.org
+   * https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=25071s
+   */
   public void addSorted(T value) {
     final Node<T> n = new Node<>();
     n.value = value;
 
-    if (head == null) {
+    if (isEmpty()) {
       add(value);
       return;
     }
 
-    if (!(value instanceof Comparable)) {
-      throw new ClassCastException();
-    }
-
-    @SuppressWarnings("unchecked")
-    var v = (Comparable<T>) value;
     var current = head;
     Node<T> temp = current;
 
-    while (current != null && v.compareTo(current.value) > 0) {
+    while (current != null && value.compareTo(current.value) > 0) {
       temp = current;
       current = current.next;
     }
@@ -61,7 +57,7 @@ public class SimplyLinkList<T> implements Iterable<T> {
   }
 
   public T removeFirst() {
-    if (head == null) {
+    if (isEmpty()) {
       return null;
     }
     final var node = head;
@@ -112,7 +108,7 @@ public class SimplyLinkList<T> implements Iterable<T> {
       throw new IndexOutOfBoundsException("n must be in range [0.." + size() + "]");
     }
 
-    if (head == null) {
+    if (isEmpty()) {
       return null;
     }
 
@@ -140,7 +136,7 @@ public class SimplyLinkList<T> implements Iterable<T> {
   public boolean contains(T v) {
     Objects.requireNonNull(v);
 
-    if (head == null) {
+    if (isEmpty()) {
       return false;
     }
     var current = head;
