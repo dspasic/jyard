@@ -154,6 +154,24 @@ public class SimplyLinkListTest {
     assertEquals(3, list.size());
   }
 
+  // GET
+
+  @Test
+  void givenTwoElements_whenGetInexZero_thenReturnFirstElement() {
+    final var list = new SimplyLinkList<Integer>();
+    list.add(1);
+    list.add(2);
+
+    assertEquals(1, list.get(1));
+  }
+
+  @Test
+  void givenNoElement_whenGetInexZero_thenThrowException() {
+    final var list = new SimplyLinkList<Integer>();
+
+    assertThrows(IndexOutOfBoundsException.class, () -> list.get(0));
+  }
+
   //
   // Insert node in a sorted Singly Link List
   //
@@ -167,8 +185,33 @@ public class SimplyLinkListTest {
     list.addSorted(1);
     list.addSorted(2);
 
-    assertEquals(1, list.removeFirst());
-    assertEquals(2, list.removeFirst());
-    assertEquals(3, list.removeFirst());
+    assertEquals(1, list.get(0));
+    assertEquals(2, list.get(1));
+    assertEquals(3, list.get(2));
+  }
+
+  // Remove
+
+  @Test
+  void givenTwoElements_whenRemoveOne_thenCountOne() {
+    final var list = new SimplyLinkList<Integer>();
+
+    list.add(3);
+    list.add(1);
+
+    assertTrue(list.remove(1));
+    assertEquals(1, list.size());
+  }
+
+
+  @Test
+  void givenTwoElements_whenRemoveThree_thenCountOne() {
+    final var list = new SimplyLinkList<Integer>();
+
+    list.add(3);
+    list.add(1);
+
+    assertTrue(list.remove(3));
+    assertEquals(1, list.size());
   }
 }

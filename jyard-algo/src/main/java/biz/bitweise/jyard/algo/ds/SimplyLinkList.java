@@ -20,7 +20,7 @@ public class SimplyLinkList<T extends Comparable<T>> implements Iterable<T> {
 
   @Nullable
   public T getFirst() {
-    return  isEmpty() ? null : head.value;
+    return isEmpty() ? null : head.value;
   }
 
   public void add(T value) {
@@ -30,10 +30,27 @@ public class SimplyLinkList<T extends Comparable<T>> implements Iterable<T> {
     head = n;
   }
 
+  public T get(int index) {
+    if (isEmpty()) {
+      throw new IndexOutOfBoundsException("list is empty");
+    }
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException("index must be in range [0.." + size() + "]");
+    }
+
+    Node<T> current = head;
+    for (int i = 0; i < index; i++) {
+      current = current.next;
+    }
+    return current.value;
+  }
+
   /**
    * Add sorted node
    *
-   * https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=4&ab_channel=freeCodeCamp.org
+   * <p>Adds elements in ascending order.
+   *
+   * <p>https://www.youtube.com/watch?v=2ZLl8GAk1X4&list=PLEn5OGbcdoM_kkzwluLHx0i4vEoSF2Pb3&index=4&ab_channel=freeCodeCamp.org
    * https://www.youtube.com/watch?v=2ZLl8GAk1X4&t=25071s
    */
   public void addSorted(T value) {
@@ -46,14 +63,41 @@ public class SimplyLinkList<T extends Comparable<T>> implements Iterable<T> {
     }
 
     var current = head;
-    Node<T> temp = current;
+    var temp = current;
 
-    while (current != null && value.compareTo(current.value) > 0) {
+    while (current != null && current.value.compareTo(value) < 0) {
+      temp = current ;
+      current = current.next;
+    }
+    if (current == head) {
+      n.next = head;
+      head = n;
+    } else {
+      n.next = current;
+      temp.next = n;
+    }
+  }
+
+  public boolean remove(T value) {
+    Objects.requireNonNull(value);
+
+    if (isEmpty()) {
+      return false;
+    }
+    var current = head;
+    Node<T> temp = null;
+    while (current != null && !current.value.equals(value)) {
       temp = current;
       current = current.next;
     }
-    n.next = current;
-    temp.next = n;
+    if (current != null) {
+      if (temp == null) {
+        head = head.next;
+      } else {
+        temp.next = current.next;
+      }
+    }
+    return true;
   }
 
   public T removeFirst() {
@@ -192,6 +236,7 @@ public class SimplyLinkList<T extends Comparable<T>> implements Iterable<T> {
     l.add(5);
     l.add(9);
     l.add(234);
+
     l.printList();
 
     System.out.println(l.size());
